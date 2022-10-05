@@ -3,6 +3,7 @@ import { PORT } from "./config.js";
 import cors from "cors";
 import morgan from "morgan";
 import users from  './routes/users.js';
+import auth from  './routes/auth.js';
 import links from  './routes/links.js';
 import authentication from  './routes/authentication.js';
 import db from "./database/db.js";
@@ -27,6 +28,7 @@ app.use(morgan('dev'))
 // app.use(passport.initialize())
 // app.use(passport.session())
 
+app.use('/auth', auth); 
 app.use('/users', users); 
 app.use('/links', links); 
 app.use('/authentication', authentication);
