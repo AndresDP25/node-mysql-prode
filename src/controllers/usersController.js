@@ -1,4 +1,5 @@
 import usersModel from "../models/usersModel.js";
+import bcrypt from "bcryptjs";
 
 //** Métodos para el CRUD **/
 
@@ -27,7 +28,9 @@ export const getUser = async (req,res) => {
 //Crear un registro 
 export const createUser = async (req, res) => {
     try {
-        await usersModel.create(req.body);
+        const {username, password, fullname, email} = req.body
+        const hash = await bcrypt.hash(password, 10)
+        await usersModel.create({username:username, hash: hash, fullname: fullname, email: email});
         res.status(200).json({"message": "Registro creadeo correctamente"});
     } catch (error) {
         res.json({message: error.message});
